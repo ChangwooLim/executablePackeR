@@ -1,9 +1,9 @@
 get_mac_architecture <- function() {
-  architecture_info <- system("uname -m", intern = TRUE)
+  architecture_info <- system2("uname", args="-m", stdout = TRUE)
   if (architecture_info == "x86_64") {
     # For an Intel processor, it will return "x86_64".
     # Check if this is an Intel Mac running in Rosetta 2
-    rosetta_info <- system("sysctl -in sysctl.proc_translated", intern = TRUE, ignore.stderr = TRUE)
+    rosetta_info <- system2("sysctl", args = c("-in", "sysctl.proc_translated"), stdout = TRUE, stderr = NULL)
     if (rosetta_info == "1") {
       return("arm64")
     } else {
@@ -33,7 +33,7 @@ detect_system <- function() {
     return(list(os = "Windows"))
   } else if (os_name == "Darwin") {
     # Use system command to get macOS version
-    mac_version_info <- system("sw_vers -productVersion", intern = TRUE)
+    mac_version_info <- system2("sw_vers", args = "-productVersion", stdout = TRUE)
     mac_architecture <- get_mac_architecture()
     print(paste("Detect macOS", mac_version_info, mac_architecture))
     return(list(os = "macOS", version = mac_version_info, architecture = mac_architecture))
