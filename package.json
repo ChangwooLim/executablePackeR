@@ -1,8 +1,8 @@
 {
-  "name": "<@app_name>",
-  "productName": "<@product_name>",
-  "version": "<@app_version>",
-  "description": "<@app_description>",
+  "name": "app_name",
+  "productName": "product_name",
+  "version": "app_version",
+  "description": "description",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -10,13 +10,13 @@
   },
   "keywords": [],
   "author": {
-    "name": "<@author_name>",
-    "email": "<@author_email>"
+    "name": "Changwoo Lim",
+    "email": "limcw@zarathu.com"
   },
   "license": "MIT",
    "repository": {
     "type": "git",
-    "url": "<@repository_url>"
+    "url": "https://github.com/zarathucorp/"
   },
   "dependencies": {
     "axios": "0.27.2",

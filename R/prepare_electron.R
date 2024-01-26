@@ -13,7 +13,8 @@ prepare_electron <- function(app_name = "myapp") {
     files_and_folders = c(
       "add-cran-binary-pkgs.R", "src", "start-shiny.R"
     ),
-    subdirectory = app_name
+    subdirectory = app_name,
+    app_name = app_name
   )
   print("Copying(copy_from_inst) complete")
 
@@ -46,4 +47,5 @@ prepare_electron <- function(app_name = "myapp") {
   print("Installing R Complete")
   source("add-cran-binary-pkgs.R")
   print("Installing CRAN binary packages Complete")
+  setwd("..")
 }
