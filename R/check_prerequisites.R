@@ -1,12 +1,14 @@
-# Sys.setenv(SHELL = "/bin/bash")
-#' @name check_dependency
+#' @name check_prerequisites
 #' @export
 #' @examples
 #' \dontrun{
 #'
 #' }
 #'
-check_dependency <- function(test = FALSE) {
+check_prerequisites <- function(test = FALSE) {
+  # Check OS is Windows or macOS
+  detect_system()
+
   dependency_list <- c("npx")
   uninstalled_list <- c()
 
@@ -19,6 +21,7 @@ check_dependency <- function(test = FALSE) {
   if (length(uninstalled_list) != 0) {
     stop(paste("Dependency", paste(uninstalled_list, collapse = ","), "is not installed."))
   }
+
   # 체크필요
   check_electron_forge_installed <- function() {
     # Command to check if electron/forge is installed

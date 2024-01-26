@@ -40,11 +40,10 @@ prepare_electron <- function(platform, app_name = "myapp") {
 
   setwd(paste0(getwd(), "/", app_name))
 
-  if(platform == "macos"){
+  if(platform == "macOS"){
     get_r_mac()
-    # system2("sh", args = c(paste0("./get-r-mac.sh")))
   } else if(platform == "windows"){
-    source("get-r-windows.R")
+    get_r_windows()
   }
   print("Installing R Complete")
   source("add-cran-binary-pkgs.R")

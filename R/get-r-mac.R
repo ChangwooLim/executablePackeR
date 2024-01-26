@@ -1,22 +1,31 @@
-get_r_mac <- function(){
+get_r_mac <- function(mac_version){
+  os = detect_system()
   # Define URL and directory
-  r_installer_url <- "https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-4.3.2-arm64.pkg"
+  if(as.numeric(os["version"]) >= 11){
+    if(os["architecture"] == "arm64"){
+      r_installer_url <- paste0("https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-", as.character(getRversion()), "-arm64.pkg")
+    } else if(os["architecture"] == "Intel"){
+      r_installer_url <- paste0("https://cloud.r-project.org/bin/macosx/big-sur-x86_64/base/R-", as.character(getRversion()), "-x86_64.pkg")
+    } else {
+      stop("Unknown architecture. Contact Developer.")
+    }
+  }
   r_dir <- "r-mac"
 
   # Create r-mac directory
   dir.create(r_dir, recursive = TRUE)
 
   # Download the R installer package for Mac
-  download.file(r_installer_url, file.path(r_dir, "latest_r.pkg"), mode = "wb")
+  download.file(r_installer_url, file.path(r_dir, "r_mac.pkg"), mode = "wb")
 
   # Change working directory
   setwd(r_dir)
 
   # Extract the package using system call
-  system("xar -xf latest_r.pkg")
+  system("xar -xf r_mac.pkg")
 
   # Removing unnecessary files and directories
-  unnecessary_files <- c("Resources", "tcltk.pkg", "texinfo.pkg", "Distribution", "latest_r.pkg")
+  unnecessary_files <- c("Resources", "tcltk.pkg", "texinfo.pkg", "Distribution", "r_mac.pkg")
   sapply(unnecessary_files, function(x) {
     file_path <- file.path(getwd(), x)
     if (file.exists(file_path) || dir.exists(file_path)) {
@@ -53,5 +62,4 @@ get_r_mac <- function(){
 
   # Reset working directory
   setwd("..")
-
 }

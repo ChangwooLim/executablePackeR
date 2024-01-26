@@ -7,7 +7,7 @@
 #'
 #' }
 pack_windows <- function(app_name = "myapp") {
-  check_dependency()
+  check_prerequisites()
   print("Checking dependency Complete")
   print(getwd())
   if (app_name == "app") stop("App name cannot be 'app'. Use different name(i. e. 'myapp')")
