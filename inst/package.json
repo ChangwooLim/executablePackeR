@@ -1,8 +1,8 @@
 {
-  "name": "<@app_name>",
-  "productName": "<@product_name>",
-  "version": "<@app_version>",
-  "description": "<@app_description>",
+  "name": "app_name_template",
+  "productName": "product_name_template",
+  "version": "0.0.1",
+  "description": "app_description_template",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -10,13 +10,13 @@
   },
   "keywords": [],
   "author": {
-    "name": "<@author_name>",
-    "email": "<@author_email>"
+    "name": "author_name_template",
+    "email": "author_email_template"
   },
   "license": "MIT",
    "repository": {
     "type": "git",
-    "url": "<@repository_url>"
+    "url": "repository_url_template"
   },
   "dependencies": {
     "axios": "0.27.2",
