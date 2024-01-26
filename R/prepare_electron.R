@@ -4,7 +4,7 @@
 #' \dontrun{
 #'
 #' }
-prepare_electron <- function(app_name = "myapp") {
+prepare_electron <- function(platform, app_name = "myapp") {
   project_dir <- getwd()
   system2("npx", args = c("create-electron-app", app_name))
   print("npx Complete")
@@ -12,7 +12,7 @@ prepare_electron <- function(app_name = "myapp") {
   copy_from_inst_to_myapp(
     files_and_folders = c(
       "add-cran-binary-pkgs.R",
-      "get-r-mac.sh", "src",
+      "get-r-mac.sh", "get-r-windows.sh", "get-r-windows.R", "src",
       "start-shiny.R"
     ),
     subdirectory = app_name
@@ -39,7 +39,12 @@ prepare_electron <- function(app_name = "myapp") {
   }
 
   setwd(paste0(getwd(), "/", app_name))
-  system2("sh", args = c(paste0("./get-r-mac.sh")))
+
+  if(platform == "macos"){
+    system2("sh", args = c(paste0("./get-r-mac.sh")))
+  } else if(platform == "windows"){
+    source("get-r-windows.R")
+  }
   print("Installing R Complete")
   source("add-cran-binary-pkgs.R")
   print("Installing CRAN binary packages Complete")

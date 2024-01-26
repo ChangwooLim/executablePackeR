@@ -34,7 +34,7 @@ install_bins <- function(
     )),
     installed
   ))
-  
+
   if (!length(cran_to_install)) {
     message("No packages to install")
   } else {
@@ -43,7 +43,7 @@ install_bins <- function(
     apply(downloaded, 1, function(x) decompress(x[2], exdir = library_path))
     unlink(downloaded[, 2])
   }
-  
+
   z <- lapply(
     list.dirs(library_path, full.names = TRUE, recursive = FALSE),
     function(x) {
@@ -58,4 +58,9 @@ if (dir.exists("r-mac")) {
     cran_pkgs = cran_pkgs, library_path = file.path("r-mac", "library"),
     type = "mac.binary.big-sur-arm64", decompress = untar
   )
+}
+
+if (dir.exists("r-win")) {
+  install_bins(cran_pkgs = cran_pkgs, library_path = file.path("r-win", "library"),
+               type = "win.binary", decompress = unzip)
 }

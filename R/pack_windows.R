@@ -1,4 +1,4 @@
-#' @name pack_macos
+#' @name pack_windows
 #' @author Changwoo Lim
 #' @import automagic
 #' @export
@@ -6,14 +6,14 @@
 #' \dontrun{
 #'
 #' }
-pack_macos <- function(app_name = "myapp") {
+pack_windows <- function(app_name = "myapp") {
   check_dependency()
   print("Checking dependency Complete")
   print(getwd())
   if (app_name == "app") stop("App name cannot be 'app'. Use different name(i. e. 'myapp')")
 
   move_to_new_folder()
-  prepare_electron(platform = "macos")
+  prepare_electron(platform = "windows")
   # unlink("package.json")
   copy_from_inst_to_myapp(
     files_and_folders = c("package.json", "forge.config.js"),
