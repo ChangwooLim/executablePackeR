@@ -4,20 +4,17 @@
 #' \dontrun{
 #'
 #' }
-prepare_electron <- function(platform, app_name = "myapp") {
+prepare_electron <- function(app_name = "myapp") {
   project_dir <- getwd()
   system2("npx", args = c("create-electron-app", app_name))
   print("npx Complete")
   unlink(paste0(app_name, "/src"), recursive = TRUE)
   copy_from_inst_to_myapp(
     files_and_folders = c(
-      "add-cran-binary-pkgs.R",
-      "get-r-mac.sh", "get-r-windows.sh", "get-r-windows.R", "src",
-      "start-shiny.R"
-    ),
+      "add-cran-binary-pkgs.R", "src", "start-shiny.R"),
     subdirectory = app_name
   )
-  print("Copying(copy_from_inst_to_myapp) complete")
+  print("Copying(copy_from_inst) complete")
 
   # Shiny폴더를 electron 앱 폴더 밑으로 옮김
   # Check if the source folder exists
@@ -39,10 +36,10 @@ prepare_electron <- function(platform, app_name = "myapp") {
   }
 
   setwd(paste0(getwd(), "/", app_name))
-
-  if(platform == "macOS"){
+  os = detect_system()
+  if(os["os"] == "macOS"){
     get_r_mac()
-  } else if(platform == "windows"){
+  } else if(os["os"] == "Windows"){
     get_r_windows()
   }
   print("Installing R Complete")
