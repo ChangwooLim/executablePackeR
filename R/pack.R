@@ -18,9 +18,9 @@ pack <- function(app_name = "myapp") {
     files_and_folders = c("package.json", "forge.config.js"),
     subdirectory = "", overwrite = TRUE
   )
+  print("Replacing forge.config.js and package.json complete.")
   system2("npm", "install")
   print("npm install Complete")
-  print("Replacing forge.config.js and package.json complete.")
   system2("electron-forge", args = c("make"))
   print(paste0("Build Complete. See ", app_name, "/out folder."))
 }

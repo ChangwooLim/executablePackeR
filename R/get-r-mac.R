@@ -1,10 +1,10 @@
-get_r_mac <- function(mac_version){
-  os = detect_system()
+get_r_mac <- function(mac_version) {
+  os <- detect_system()
   # Define URL and directory
-  if(as.numeric(os["version"]) >= 11){
-    if(os["architecture"] == "arm64"){
+  if (as.numeric(os["version"]) >= 11) {
+    if (os["architecture"] == "arm64") {
       r_installer_url <- paste0("https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-", as.character(getRversion()), "-arm64.pkg")
-    } else if(os["architecture"] == "Intel"){
+    } else if (os["architecture"] == "Intel") {
       r_installer_url <- paste0("https://cloud.r-project.org/bin/macosx/big-sur-x86_64/base/R-", as.character(getRversion()), "-x86_64.pkg")
     } else {
       stop("Unknown architecture. Contact Developer.")

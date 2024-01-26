@@ -1,4 +1,4 @@
-get_r_windows <- function(){# Define package name and paths
+get_r_windows <- function() { # Define package name and paths
   your_package_name <- "executablePackeR"
   innoextract_path <- system.file("innoextract/innoextract.exe", package = your_package_name)
   R_version <- as.character(getRversion())
@@ -39,5 +39,4 @@ get_r_windows <- function(){# Define package name and paths
       unlink(full_dir_path, recursive = TRUE)
     }
   })
-
 }

@@ -11,7 +11,8 @@ prepare_electron <- function(app_name = "myapp") {
   unlink(paste0(app_name, "/src"), recursive = TRUE)
   copy_from_inst_to_myapp(
     files_and_folders = c(
-      "add-cran-binary-pkgs.R", "src", "start-shiny.R"),
+      "add-cran-binary-pkgs.R", "src", "start-shiny.R"
+    ),
     subdirectory = app_name
   )
   print("Copying(copy_from_inst) complete")
@@ -36,10 +37,10 @@ prepare_electron <- function(app_name = "myapp") {
   }
 
   setwd(paste0(getwd(), "/", app_name))
-  os = detect_system()
-  if(os["os"] == "macOS"){
+  os <- detect_system()
+  if (os["os"] == "macOS") {
     get_r_mac()
-  } else if(os["os"] == "Windows"){
+  } else if (os["os"] == "Windows") {
     get_r_windows()
   }
   print("Installing R Complete")

@@ -9,7 +9,7 @@ check_prerequisites <- function(test = FALSE) {
   # Check OS is Windows or macOS
   detect_system()
 
-  dependency_list <- c("npx")
+  dependency_list <- c("npx", "electron-forge")
   uninstalled_list <- c()
 
   for (i in seq_along(dependency_list)) {
@@ -18,9 +18,23 @@ check_prerequisites <- function(test = FALSE) {
     }
   }
 
+  if(!("npx" %in% uninstalled_list) && ("electron-forge" %in% uninstalled_list)){
+    user_response <- readline(prompt = "Do you want to install electron-forge through npm? (yes/no): ")
+    if(tolower(user_response) %in% c("yes", "y")) {
+      print("Installing @electron-forge/cli through npm.")
+      system2("npm", args=c("install", "-g", "@electron-forge/cli"))
+
+      if (Sys.which("electron-forge") != "") {
+        uninstalled_list <- uninstalled_list[uninstalled_list != "electron-forge"]
+      }
+    }
+  }
+
   if (length(uninstalled_list) != 0) {
     stop(paste("Dependency", paste(uninstalled_list, collapse = ","), "is not installed."))
   }
+
+
 
   # 체크필요
   check_electron_forge_installed <- function() {
@@ -38,5 +52,5 @@ check_prerequisites <- function(test = FALSE) {
   }
 }
 
-# check_dependency()
+
 # check_electron_forge_cli_installed()

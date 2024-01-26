@@ -20,8 +20,8 @@ get_mac_architecture <- function() {
 #' @name detect_system
 #' @examples
 #' \dontrun{
-#'   os_info <- get_os_info()
-#'   print(os_info)
+#' os_info <- get_os_info()
+#' print(os_info)
 #' }
 #'
 detect_system <- function() {
