@@ -1,5 +1,5 @@
-#' @name copy_fron_inst_to_myapp
-copy_from_inst_to_myapp <- function(files_and_folders, subdirectory = "", overwrite = TRUE, app_name = "myapp") {
+#' @name copy_fron_inst_to_app
+copy_from_inst_to_app <- function(files_and_folders, subdirectory = "", overwrite = TRUE, app_name = "myapp") {
   # Get the current working directory
   project_dir <- getwd()
 

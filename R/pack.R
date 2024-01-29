@@ -13,7 +13,7 @@
 #'                          electron_settings=list(c("product_name_template",
 #'                                                   "my_own_product_name")))
 #' }
-#' @param app_name Name o-f your application
+#' @param app_name Name of your application
 #' @param electron_settings a list including package.json settings. Including product_name, app_version, app_description, author_name, author_email, repository_url
 pack <- function(app_name = "myapp", electron_settings = list()) {
   check_prerequisites()
@@ -23,7 +23,7 @@ pack <- function(app_name = "myapp", electron_settings = list()) {
 
   move_to_new_folder()
   prepare_electron(app_name = app_name)
-  copy_from_inst_to_myapp(
+  copy_from_inst_to_app(
     files_and_folders = c("package.json", "forge.config.js"),
     subdirectory = app_name, overwrite = TRUE, app_name = app_name
   )

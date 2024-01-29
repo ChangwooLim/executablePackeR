@@ -4,7 +4,7 @@ prepare_electron <- function(app_name = "myapp") {
   system2("npx", args = c("create-electron-app", app_name))
   message("npx Complete")
   unlink(paste0(app_name, "/src"), recursive = TRUE)
-  copy_from_inst_to_myapp(
+  copy_from_inst_to_app(
     files_and_folders = c(
       "add-cran-binary-pkgs.R", "src", "start-shiny.R"
     ),
