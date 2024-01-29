@@ -7,7 +7,9 @@ get_r_windows <- function() { # Define package name and paths
   innoextract_url <- "https://constexpr.org/innoextract/files/innoextract-1.9-windows.zip"
   innoextract_url_mirror <- "https://github.com/dscharrer/innoextract/releases/download/1.9/innoextract-1.9-windows.zip"
   innoextract_filename <- "innoextract.zip"
+  innoextract_executable_filename <- "innoextract.exe"
   innoextract_path <- "innoextract"
+
   # Create download directory
   dir.create(r_dir)
 
@@ -22,7 +24,7 @@ get_r_windows <- function() { # Define package name and paths
   unzip(innoextract_filename, exdir = innoextract_path)
 
   # Construct command to extract the R installer
-  cmd_extract <- paste(shQuote(paste(innoextract_path, innoextract_filename, sep="/")), "-e", shQuote(file.path(r_dir, "r_windows.exe")))
+  cmd_extract <- paste(shQuote(paste(innoextract_path, innoextract_executable_filename, sep="/")), "-e", shQuote(file.path(r_dir, "r_windows.exe")))
 
   # Execute the extraction command
   system(cmd_extract, invisible = TRUE)
