@@ -1,6 +1,7 @@
 Package: executablePackeR
 Title: Make Shiny App to be Executable Program.
 Version: 0.0.0.9000
+Maintainer: Changwoo Lim <limcw@zarathu.com>
 Authors@R: 
     person("Changwoo", "Lim", , "limcw@zarathu.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
