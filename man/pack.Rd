@@ -7,7 +7,7 @@
 pack(app_name = "myapp", electron_settings = list())
 }
 \arguments{
-\item{app_name}{Name of your application}
+\item{app_name}{Name of your application. Default will be "myapp".}
 
 \item{electron_settings}{a list including package.json settings. Including product_name, app_version, app_description, author_name, author_email, repository_url}
 }
@@ -17,12 +17,15 @@ Go to your project directory(Including app.R), and run this function.
 }
 \examples{
 \dontrun{
-executablePackeR::pack(
+pack(
   app_name = "myapp",
-  electron_settings = list(c(
-    "product_name_template",
-    "my_own_product_name"
-  ))
+  electron_settings = list(
+    c("product_name_template", "My Own Product Name"),
+    c("app_description_template", "App Description"),
+    c("author_name_template", "Author Name"),
+    c("author_email_template", "Author E-mail"),
+    c("repository_url_template", "Repository URL")
+  )
 )
 }
 }
