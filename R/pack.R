@@ -9,9 +9,13 @@
 #'
 #' @examples
 #' \dontrun{
-#'   executablePackeR::pack(app_name="myapp",
-#'                          electron_settings=list(c("product_name_template",
-#'                                                   "my_own_product_name")))
+#' executablePackeR::pack(
+#'   app_name = "myapp",
+#'   electron_settings = list(c(
+#'     "product_name_template",
+#'     "my_own_product_name"
+#'   ))
+#' )
 #' }
 #' @param app_name Name of your application
 #' @param electron_settings a list including package.json settings. Including product_name, app_version, app_description, author_name, author_email, repository_url
@@ -38,4 +42,3 @@ pack <- function(app_name = "myapp", electron_settings = list()) {
   message(paste0("Build Complete. See ", app_name, "/out folder."))
   setwd("..")
 }
-

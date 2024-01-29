@@ -23,7 +23,7 @@ get_r_mac <- function(mac_version) {
   setwd(r_dir)
 
   # Extract the package using system call
-  system2("xar", args=c("-xf", "r_mac.pkg"))
+  system2("xar", args = c("-xf", "r_mac.pkg"))
 
   # Removing unnecessary files and directories
   unnecessary_files <- c("Resources", "tcltk.pkg", "texinfo.pkg", "Distribution", "r_mac.pkg")

@@ -17,14 +17,16 @@ get_r_windows <- function() { # Define package name and paths
   download.file(r_installer_url, file.path(r_dir, "r_windows.exe"), mode = "wb")
   print("Downloading R Installer Complete")
 
-  download_file(primary_url = innoextract_url,
-                mirror_urls = c(innoextract_url_mirror),
-                dest_file = "innoextract.zip", name = "innoextract")
+  download_file(
+    primary_url = innoextract_url,
+    mirror_urls = c(innoextract_url_mirror),
+    dest_file = "innoextract.zip", name = "innoextract"
+  )
 
   unzip(innoextract_filename, exdir = innoextract_path)
 
   # Construct command to extract the R installer
-  cmd_extract <- paste(shQuote(paste(innoextract_path, innoextract_executable_filename, sep="/")), "-e", shQuote(file.path(r_dir, "r_windows.exe")))
+  cmd_extract <- paste(shQuote(paste(innoextract_path, innoextract_executable_filename, sep = "/")), "-e", shQuote(file.path(r_dir, "r_windows.exe")))
 
   # Execute the extraction command
   system(cmd_extract, invisible = TRUE)

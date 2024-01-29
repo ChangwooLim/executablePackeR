@@ -1,5 +1,5 @@
 get_mac_architecture <- function() {
-  architecture_info <- system2("uname", args="-m", stdout = TRUE)
+  architecture_info <- system2("uname", args = "-m", stdout = TRUE)
   if (architecture_info == "x86_64") {
     # For an Intel processor, it will return "x86_64".
     # Check if this is an Intel Mac running in Rosetta 2

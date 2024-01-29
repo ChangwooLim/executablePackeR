@@ -12,11 +12,11 @@ check_prerequisites <- function(test = FALSE) {
     }
   }
 
-  if(!("npx" %in% uninstalled_list) && ("electron-forge" %in% uninstalled_list)){
+  if (!("npx" %in% uninstalled_list) && ("electron-forge" %in% uninstalled_list)) {
     user_response <- readline(prompt = "Do you want to install electron-forge through npm? (yes/no): ")
-    if(tolower(user_response) %in% c("yes", "y")) {
+    if (tolower(user_response) %in% c("yes", "y")) {
       print("Installing @electron-forge/cli through npm.")
-      system2("npm", args=c("install", "-g", "@electron-forge/cli"))
+      system2("npm", args = c("install", "-g", "@electron-forge/cli"))
 
       if (Sys.which("electron-forge") != "") {
         uninstalled_list <- uninstalled_list[uninstalled_list != "electron-forge"]
