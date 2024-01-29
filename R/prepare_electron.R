@@ -2,7 +2,7 @@
 prepare_electron <- function(app_name = "myapp") {
   project_dir <- getwd()
   system2("npx", args = c("create-electron-app", app_name))
-  print("npx Complete")
+  message("npx Complete")
   unlink(paste0(app_name, "/src"), recursive = TRUE)
   copy_from_inst_to_myapp(
     files_and_folders = c(
@@ -11,7 +11,7 @@ prepare_electron <- function(app_name = "myapp") {
     subdirectory = app_name,
     app_name = app_name
   )
-  print("Copying(copy_from_inst) complete")
+  message("Copying(copy_from_inst) complete")
 
   # Shiny폴더를 electron 앱 폴더 밑으로 옮김
   # Check if the source folder exists

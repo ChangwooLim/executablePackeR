@@ -1,3 +1,4 @@
+#' @importFrom utils download.file
 get_r_mac <- function(mac_version) {
   os <- detect_system()
   # Define URL and directory

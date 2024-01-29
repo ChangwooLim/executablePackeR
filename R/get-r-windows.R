@@ -1,3 +1,4 @@
+#' @importFrom utils download.file unzip
 get_r_windows <- function() { # Define package name and paths
   R_version <- as.character(getRversion())
   r_installer_url <- paste0("https://cloud.r-project.org/bin/windows/base/old/", R_version, "/R-", R_version, "-win.exe")

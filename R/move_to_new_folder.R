@@ -1,4 +1,3 @@
-#' @export
 copy_contents <- function(source, destination) {
   # Ensure the destination directory exists
   if (!dir.exists(destination)) {
@@ -26,7 +25,6 @@ copy_contents <- function(source, destination) {
 }
 
 #' @name move_to_new_folder
-#' @export
 move_to_new_folder <- function() {
   project_folder <- getwd()
   shiny_folder <- file.path(project_folder, "shiny")
