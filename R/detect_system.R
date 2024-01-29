@@ -17,7 +17,6 @@ get_mac_architecture <- function() {
   }
 }
 
-#' @name detect_system
 detect_system <- function() {
   os_info <- Sys.info()
   os_name <- os_info["sysname"]

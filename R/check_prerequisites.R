@@ -1,4 +1,3 @@
-#' @name check_prerequisites
 check_prerequisites <- function(test = FALSE) {
   # Check OS is Windows or macOS
   detect_system()

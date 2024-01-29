@@ -24,7 +24,6 @@ copy_contents <- function(source, destination) {
   }
 }
 
-#' @name move_to_new_folder
 move_to_new_folder <- function() {
   project_folder <- getwd()
   shiny_folder <- file.path(project_folder, "shiny")
