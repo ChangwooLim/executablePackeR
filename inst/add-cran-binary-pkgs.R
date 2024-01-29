@@ -1,5 +1,6 @@
 # Copyright (c) 2018 Dirk Schumacher, Noam Ross, Rich FitzJohn
 # Copyright (c) 2023 Jinhwan Kim
+# Copyright (c) 2024 Changwoo Lim
 
 # !/usr/bin/env Rscript
 
@@ -52,17 +53,43 @@ get_local_package_dependencies <- function(package_name) {
     stop("DESCRIPTION file not found for the package ", package_name)
   }
 
-  description_content <- readLines(description_path)
-  deps_lines <- description_content[grepl("^Imports:|^Depends:|^Suggests:|^LinkingTo:", description_content)]
-  deps <- unlist(strsplit(deps_lines, split = "[,:]+"))
-  deps <- trimws(deps) # Remove leading/trailing whitespace
+  extract_section <- function(section) {
+    content <- readLines(description_path)
+    start <- grep(paste0("^", section, ":"), content)
+    if (length(start) == 0) return(character(0))  # Return empty if section not found
 
-  # Remove versioning information and filter
-  deps <- sub("\\s+.*$", "", deps)
-  deps <- deps[deps != "" &
-    !deps %in% c("R", "Depends", "Imports", "Suggests", "LinkingTo")]
+    # Determine the end of the section
+    next_sections <- grep("^[A-Za-z]+:", content)
+    next_section_start <- next_sections[next_sections > start]
+    end <- if (length(next_section_start) == 0) {
+      length(content)
+    } else {
+      min(next_section_start[1] - 1, length(content))
+    }
 
-  return(deps)
+    # Extract and clean the section content
+    section_lines <- content[start:end]
+    section_content <- paste(section_lines, collapse = " ")
+    section_content <- gsub(paste0("^", section, ":\\s*"), "", section_content)
+    section_content <- gsub("\\([^\\)]+\\)", "", section_content)
+    package_names <- unlist(strsplit(section_content, ",\\s*"))
+    package_names <- package_names[nzchar(package_names)]
+    package_names <- trimws(package_names)
+    return(unique(package_names))
+  }
+
+
+  # Extract packages from Imports and Depends sections
+  imports <- extract_section("Imports")
+  depends <- extract_section("Depends")
+  suggests <- extract_section("Suggests")
+  linkingto <- extract_section("LinkingTo")
+
+  # Combine and return unique package names
+  required_packages <- unique(c(imports, depends))
+  required_packages <- required_packages[required_packages != "" &
+                                           !required_packages %in% c("R", "Depends", "Imports", "Suggests", "LinkingTo")]
+  return(required_packages)
 }
 
 install_bins <- function(
@@ -127,7 +154,7 @@ if (dir.exists("r-mac")) {
     cran_pkgs = cran_pkgs, library_path = library_install_path,
     type = "mac.binary.big-sur-arm64", decompress = untar
   )
-  copy_unavailable_packages(unavailable_packages, library_install_path)
+  # copy_unavailable_packages(unavailable_packages, library_install_path)
 }
 
 if (dir.exists("r-win")) {
@@ -136,5 +163,5 @@ if (dir.exists("r-win")) {
     cran_pkgs = cran_pkgs, library_path = library_install_path,
     type = "win.binary", decompress = unzip
   )
-  copy_unavailable_packages(unavailable_packages, library_install_path)
+  # copy_unavailable_packages(unavailable_packages, library_install_path)
 }
