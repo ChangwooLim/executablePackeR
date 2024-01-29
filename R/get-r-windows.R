@@ -1,6 +1,4 @@
 get_r_windows <- function() { # Define package name and paths
-  your_package_name <- "executablePackeR"
-  # innoextract_path <- system.file("innoextract/innoextract.exe", package = your_package_name)
   R_version <- as.character(getRversion())
   r_installer_url <- paste0("https://cloud.r-project.org/bin/windows/base/old/", R_version, "/R-", R_version, "-win.exe")
   r_dir <- "r-win"
@@ -21,6 +19,7 @@ get_r_windows <- function() { # Define package name and paths
   download_file(primary_url = innoextract_url,
                 mirror_urls = c(innoextract_url_mirror),
                 dest_file = "innoextract.zip", name = "innoextract")
+
   unzip(innoextract_filename, exdir = innoextract_path)
 
   # Construct command to extract the R installer
