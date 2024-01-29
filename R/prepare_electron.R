@@ -1,9 +1,4 @@
 #' @name prepare_electron
-#' @export
-#' @examples
-#' \dontrun{
-#'
-#' }
 prepare_electron <- function(app_name = "myapp") {
   project_dir <- getwd()
   system2("npx", args = c("create-electron-app", app_name))
