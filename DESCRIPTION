@@ -1,5 +1,5 @@
 Package: executablePackeR
-Title: Make Shiny App to be Executable Program.
+Title: Make Shiny App to be Executable Program
 Version: 0.0.0.9000
 Maintainer: Changwoo Lim <limcw@zarathu.com>
 Authors@R: 
@@ -8,8 +8,7 @@ Authors@R:
 Description: This package is for shiny developers. It will make your shiny 
     application as executable program. Users do not need to install R 
     and Shiny on their system.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: GPL-3 + file LICENSE
 Imports:
   automagic
 Encoding: UTF-8
