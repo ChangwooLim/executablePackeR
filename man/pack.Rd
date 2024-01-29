@@ -17,9 +17,13 @@ Go to your project directory(Including app.R), and run this function.
 }
 \examples{
 \dontrun{
-  executablePackeR::pack(app_name="myapp",
-                         electron_settings=list(c("product_name_template",
-                                                  "my_own_product_name")))
+executablePackeR::pack(
+  app_name = "myapp",
+  electron_settings = list(c(
+    "product_name_template",
+    "my_own_product_name"
+  ))
+)
 }
 }
 \author{

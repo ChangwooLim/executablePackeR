@@ -39,9 +39,8 @@ copy_unavailable_packages <- function(unavailable_pkgs, library_install_path) {
       }
     } else {
       stop("Package ", pkg, " not found in the user's library paths.")
-      #message("Package ", pkg, " not found in the user's library paths.")
+      # message("Package ", pkg, " not found in the user's library paths.")
     }
-
   }
 }
 
@@ -61,7 +60,7 @@ get_local_package_dependencies <- function(package_name) {
   # Remove versioning information and filter
   deps <- sub("\\s+.*$", "", deps)
   deps <- deps[deps != "" &
-                 !deps %in% c("R", "Depends", "Imports", "Suggests", "LinkingTo")]
+    !deps %in% c("R", "Depends", "Imports", "Suggests", "LinkingTo")]
 
   return(deps)
 }
@@ -77,11 +76,13 @@ install_bins <- function(
 
   cran_to_install <- sort(setdiff(
     unique(unlist(
-      c(cran_pkgs,
+      c(
+        cran_pkgs,
         tools::package_dependencies(cran_pkgs,
-                                    recursive = TRUE,
-                                    which = c("Depends", "Imports", "LinkingTo")
-        ))
+          recursive = TRUE,
+          which = c("Depends", "Imports", "LinkingTo")
+        )
+      )
     )),
     installed
   ))
@@ -89,8 +90,10 @@ install_bins <- function(
   available_packages <- rownames(available.packages())
   unavailable_pkgs <- setdiff(cran_to_install, available_packages)
   if (length(unavailable_pkgs) > 0) {
-    warning("The following packages are not available at CRAN and copied from your R library: ",
-            paste(unavailable_pkgs, collapse = ", "))
+    warning(
+      "The following packages are not available at CRAN and copied from your R library: ",
+      paste(unavailable_pkgs, collapse = ", ")
+    )
   }
 
   cran_to_install <- intersect(cran_to_install, available_packages)
@@ -115,7 +118,6 @@ install_bins <- function(
   invisible(unavailable_pkgs)
 
   copy_unavailable_packages(unavailable_pkgs, library_path)
-
 }
 
 
@@ -130,8 +132,9 @@ if (dir.exists("r-mac")) {
 
 if (dir.exists("r-win")) {
   library_install_path <- file.path("r-win", "library")
-  unavailable_packages <- install_bins(cran_pkgs = cran_pkgs, library_path = library_install_path,
-                                       type = "win.binary", decompress = unzip
+  unavailable_packages <- install_bins(
+    cran_pkgs = cran_pkgs, library_path = library_install_path,
+    type = "win.binary", decompress = unzip
   )
   copy_unavailable_packages(unavailable_packages, library_install_path)
 }
