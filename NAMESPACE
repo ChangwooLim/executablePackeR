@@ -2,5 +2,7 @@
 
 export(pack)
 import(automagic)
+import(cli)
+importFrom(cli,cli_alert_success)
 importFrom(utils,download.file)
 importFrom(utils,unzip)

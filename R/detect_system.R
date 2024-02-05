@@ -18,19 +18,19 @@ get_mac_architecture <- function() {
 }
 
 detect_system <- function() {
+  cli_h3("Detecting your Operating System")
   os_info <- Sys.info()
   os_name <- os_info["sysname"]
-
   if (os_name == "Windows") {
-    print("Detected Windows.")
+    cli_alert_info("Detected Windows")
     return(list(os = "Windows"))
   } else if (os_name == "Darwin") {
-    # Use system command to get macOS version
     mac_version_info <- system2("sw_vers", args = "-productVersion", stdout = TRUE)
     mac_architecture <- get_mac_architecture()
-    print(paste("Detect macOS", mac_version_info, mac_architecture))
+    cli_alert_info(paste("Detect macOS", mac_version_info, mac_architecture))
     return(list(os = "macOS", version = mac_version_info, architecture = mac_architecture))
   } else {
-    stop("Operating Systems other than Windows or macOS are currently not supported.")
+    cli_alert_danger("Operating Systems other than Windows or macOS are currently not supported. Aborting.")
+    stop("Only Windows and macOS are supported.")
   }
 }

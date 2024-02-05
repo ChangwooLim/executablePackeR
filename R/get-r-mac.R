@@ -28,7 +28,7 @@ get_r_mac <- function(mac_version) {
   # Removing unnecessary files and directories
   unnecessary_files <- c("Resources", "tcltk.pkg", "texinfo.pkg", "Distribution", "r_mac.pkg")
   sapply(unnecessary_files, function(x) {
-    file_path <- file.path(getwd(), x)
+      file_path <- file.path(getwd(), x)
     if (file.exists(file_path) || dir.exists(file_path)) {
       unlink(file_path, recursive = TRUE)
     }

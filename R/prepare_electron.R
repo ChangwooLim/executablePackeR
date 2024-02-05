@@ -1,5 +1,5 @@
-prepare_electron <- function(app_name = "myapp") {
-  project_dir <- getwd()
+#' @importFrom cli cli_alert_success
+prepare_electron <- function(app_name = "myapp", options) {
   system2("npx", args = c("create-electron-app", app_name))
   message("npx Complete")
   unlink(paste0(app_name, "/src"), recursive = TRUE)

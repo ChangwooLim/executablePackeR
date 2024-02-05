@@ -2,12 +2,14 @@
 #' @title Make Shiny Application to Executable File
 #' @author Changwoo Lim
 #' @import automagic
+#' @import cli
 #' @export
 #' @description
 #' This Function make your shiny app to an executable file
 #' Go to your project directory(Including app.R), and run this function.
 #' @examples
-#' \dontrun{
+#' \donttest{
+#' # Needs at least 1 minute.
 #' pack(
 #'   app_name = "myapp",
 #'   electron_settings = list(
@@ -16,27 +18,62 @@
 #'     c("author_name_template", "Author Name"),
 #'     c("author_email_template", "Author E-mail"),
 #'     c("repository_url_template", "Repository URL")
+#'   ),
+#'   options = list(
+#'
 #'   )
 #' )
 #' }
 #' @param app_name Name of your application. Default will be "myapp".
-#' @param electron_settings a list including package.json settings. Including product_name, app_version, app_description, author_name, author_email, repository_url
-pack <- function(app_name = "myapp", electron_settings = list()) {
-  check_prerequisites()
-  message("Checking dependency Complete")
-  # print(getwd())
-  if (app_name == "app") stop("App name cannot be 'app'. Use different name(i. e. 'myapp')")
+#' @param electron_settings A list including package.json settings. Including product_name, app_version, app_description, author_name, author_email, repository_url
+#' @param options A list containing options for packing. See option_description.md for details.
+#' @return Returns nothing. For generating new files.
+pack <- function(app_name = "myapp", electron_settings = list(), options = list()) {
+  allow_write_user_response <- readline(prompt = "This package writes in your current directory. Do you agree with it?: (Y/N) ")
+  if (!(tolower(allow_write_user_response) %in% c("yes", "y", "t", "true"))) { # Strip해서 공백되지 않아야 함.
+    cli_alert_danger("You should grant application to write in your current directory.")
+    stop("Aborting. User did not granted permission.")
+  }
+
+  cli_h1("Packing your Shiny application to executable file")
+  cli_h2("Checking Prerequisites")
+
+  check_prerequisites(options = options)
+
+  # Preparing: working directory
+  oldwd <- getwd()
+  on.exit(setwd(oldwd))
+
+  cli_alert_success("Checking dependency Complete")
+
+  if (app_name == "app") {
+    cli_alert_warning("App name cannot be 'app'. Use different name(i. e. 'myapp').")
+    user_response <- readline(prompt = "Please provide new name of your application: ")
+    if ((user_response != "") && (user_response != "app")) { # Strip해서 공백되지 않아야 함.
+      app_name <- user_response
+      cli_alert_success(paste0("Your application name has been changed to ", app_name))
+    } else {
+      cli_alert_danger("Application name cannot be blank or 'app'. Aborting")
+      stop("Application name does not fit to standard")
+    }
+  }
 
   move_to_new_folder()
-  prepare_electron(app_name = app_name)
+  prepare_electron(app_name = app_name, options = options)
   copy_from_inst_to_app(
     files_and_folders = c("package.json", "forge.config.js"),
     subdirectory = app_name, overwrite = TRUE, app_name = app_name
   )
   message("Replacing forge.config.js and package.json complete.")
   setwd(app_name)
-  edit_file("package.json", c(list(c("<@app_name>", app_name)), electron_settings))
-  message("Adjusting package.json content Complete")
+
+  edit_package_json_reuslt <- edit_file("package.json", c(list(c("<@app_name>", app_name)), electron_settings))
+  if(edit_package_json_reuslt == TRUE){
+    cli_alert_success("Adjusting package.json content Complete")
+  } else {
+    stop("File not found")
+  }
+
   message("Installing npm dependencies(npm i)")
   system2("npm", args = "install", invisible = FALSE)
   message("npm install Complete")

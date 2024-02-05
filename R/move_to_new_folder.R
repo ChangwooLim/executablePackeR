@@ -26,6 +26,7 @@ copy_contents <- function(source, destination) {
 
 move_to_new_folder <- function() {
   project_folder <- getwd()
+  cli_alert_info(paste0("Current directory: ", project_folder))
   shiny_folder <- file.path(project_folder, "shiny")
 
   if (!dir.exists(shiny_folder)) {
