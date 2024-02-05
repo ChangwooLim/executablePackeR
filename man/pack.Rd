@@ -4,19 +4,24 @@
 \alias{pack}
 \title{Make Shiny Application to Executable File}
 \usage{
-pack(app_name = "myapp", electron_settings = list())
+pack(app_name = "myapp", electron_settings = list(), options = list())
 }
 \arguments{
 \item{app_name}{Name of your application. Default will be "myapp".}
 
-\item{electron_settings}{a list including package.json settings. Including product_name, app_version, app_description, author_name, author_email, repository_url}
+\item{electron_settings}{A list including package.json settings. Including product_name, app_version, app_description, author_name, author_email, repository_url}
+
+\item{options}{A list containing options for packing. See option_description.md for details.}
+}
+\value{
+Returns nothing. For generating new files.
 }
 \description{
 This Function make your shiny app to an executable file
 Go to your project directory(Including app.R), and run this function.
 }
 \examples{
-\dontrun{
+\donttest{
 pack(
   app_name = "myapp",
   electron_settings = list(

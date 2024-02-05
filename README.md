@@ -26,9 +26,13 @@ or
 
 Run `npm i -g @electron-forge/cli` in your terminal to install electron in your system.
 
-For packages not available at CRAN should be installed at your computer.
-
 (macOS) If your account don't have proper permission, run `sudo npm i -g @electron-forge/cli`
+
+Packages used in your application not available at CRAN should be installed at your computer.
+
+## Options
+
+See option_description.md for more information.
 
 ## Troubleshooting
 
