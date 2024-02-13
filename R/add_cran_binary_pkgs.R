@@ -10,6 +10,7 @@
 # Code format changed using styler::style_active_file()
 # CRAN link updated to el-capitan to big-sur(m1)
 #' @import automagic
+#' @import cli
 #' @importFrom utils available.packages download.packages untar
 add_cran_binary_pkgs <- function(app_name = "myapp") {
   setwd(file.path(tempdir(), app_name))
@@ -31,7 +32,7 @@ add_cran_binary_pkgs <- function(app_name = "myapp") {
           dir.create(dest_dir, recursive = TRUE)
         }
         file.copy(pkg_path, dest_dir, recursive = TRUE)
-        message("Copied ", pkg, " to ", dest_dir)
+        cli_alert_success("Copied ", pkg, " to ", dest_dir)
 
         if (dir.exists("r-mac")) {
           library_install_path <- file.path("r-mac", "library")
@@ -123,7 +124,7 @@ add_cran_binary_pkgs <- function(app_name = "myapp") {
     available_packages <- rownames(available.packages())
     unavailable_pkgs <- setdiff(cran_to_install, available_packages)
     if (length(unavailable_pkgs) > 0) {
-      warning(
+      cli_alert_warning(
         "The following packages are not available at CRAN and copied from your R library: ",
         paste(unavailable_pkgs, collapse = ", ")
       )
@@ -132,7 +133,7 @@ add_cran_binary_pkgs <- function(app_name = "myapp") {
     cran_to_install <- intersect(cran_to_install, available_packages)
 
     if (!length(cran_to_install)) {
-      message("No new packages to install.")
+      cli_alert_info("No new packages to install.")
       return(invisible(unavailable_pkgs))
     }
 
