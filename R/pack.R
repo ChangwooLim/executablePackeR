@@ -45,6 +45,8 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
   if(is.null(executable_save_directory)) {
     cli_alert_danger("Select Export Directory")
     stop("You should select export directory")
+  } else {
+    cli_alert_success(paste0("Saving Executable at: ", executable_save_directory))
   }
 
   if (app_name == "app") {
@@ -85,10 +87,11 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
   setwd("..")
 
   # Cleaning temp files
-  unlink(file.path(tempdir(), app_name, "out/make"), recursive = TRUE)
-  setwd(file.path(tempdir(), app_name, "out"))
+  # unlink(file.path(tempdir(), app_name, "out/make"), recursive = TRUE)
+  # setwd(file.path(tempdir(), app_name, "out"))
+  setwd(file.path(tempdir(), app_name, "out/make"))
   executable_to_zip <- list.files(path = file.path("."), full.names = TRUE, recursive = TRUE)
-  cli_alert_info("Compressing. Please wait", total = 100)
+  cli_alert_info("Compressing. Please wait")
   zip(zipfile = file.path(executable_save_directory, "executable.zip"), files = executable_to_zip, flags = "-q")
   unlink(file.path(tempdir(), app_name))
   setwd("..")
