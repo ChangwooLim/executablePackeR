@@ -1,9 +1,6 @@
 copy_from_inst_to_app <- function(files_and_folders, subdirectory = "", overwrite = TRUE, app_name = "myapp") {
-  # Get the current working directory
-  project_dir <- getwd()
-
   # Define the destination path
-  dest_dir <- file.path(project_dir, subdirectory)
+  dest_dir <- file.path(tempdir(), subdirectory)
 
   # Create the destination directory if it doesn't exist
   if (!dir.exists(dest_dir)) {

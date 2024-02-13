@@ -25,13 +25,11 @@ copy_contents <- function(source, destination) {
 }
 
 move_to_new_folder <- function() {
-  project_folder <- getwd()
-  cli_alert_info(paste0("Current directory: ", project_folder))
-  shiny_folder <- file.path(project_folder, "shiny")
+  shiny_folder <- file.path(tempdir(), "shiny")
 
   if (!dir.exists(shiny_folder)) {
     dir.create(shiny_folder)
   }
 
-  copy_contents(project_folder, shiny_folder)
+  copy_contents(".", shiny_folder)
 }

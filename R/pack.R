@@ -30,6 +30,9 @@
 #' @param options A list containing options for packing. See option_description.md for details.
 #' @return Returns nothing. For generating new files.
 pack <- function(app_name = "myapp", electron_settings = list(), options = list()) {
+  oldwd <- getwd()
+  on.exit(setwd(oldwd))
+
   cli_h1("Packing your Shiny application to executable file")
   cli_h2("Checking Prerequisites")
 
@@ -37,10 +40,6 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
 
   cli_alert_info("Select a directory to save files.")
   select_directory <- rstudioapi::selectDirectory()
-
-  # Preparing: working directory
-  oldwd <- getwd()
-  on.exit(setwd(oldwd))
 
   cli_alert_success("Checking dependency Complete")
 
@@ -65,16 +64,17 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
   cli_alert_success("Replacing forge.config.js and package.json complete.")
   setwd(app_name)
 
-  edit_package_json_reuslt <- edit_file("package.json", c(list(c("<@app_name>", app_name)), electron_settings))
+  edit_package_json_reuslt <- edit_file(paste0(tempdir(), "/", app_name, "/package.json"), c(list(c("<@app_name>", app_name)), electron_settings))
   if(edit_package_json_reuslt == TRUE){
     cli_alert_success("Adjusting package.json content Complete")
   } else {
     stop("File not found")
   }
-
+  setwd(file.path(tempdir(), app_name))
   cli_alert_info("Installing npm dependencies(npm i)")
-  system2("npm", args = "install", invisible = FALSE)
+  system2("npm", args = c("install"), invisible = FALSE)
   cli_alert_success("npm install Complete")
+
   system2("electron-forge", args = c("make"))
   cli_alert_success(paste0("Build Complete. See ", app_name, "/out folder."))
   setwd("..")

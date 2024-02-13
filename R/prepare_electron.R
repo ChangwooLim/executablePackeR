@@ -1,5 +1,6 @@
 #' @importFrom cli cli_alert_success
 prepare_electron <- function(app_name = "myapp", options) {
+  setwd(tempdir())
   system2("npx", args = c("create-electron-app", app_name))
   message("npx Complete")
   unlink(paste0(app_name, "/src"), recursive = TRUE)
@@ -14,8 +15,8 @@ prepare_electron <- function(app_name = "myapp", options) {
 
   # Shiny폴더를 electron 앱 폴더 밑으로 옮김
   # Check if the source folder exists
-  shiny_folder <- "shiny" # Replace with the actual path to the shiny folder
-  myapp_folder <- file.path(getwd(), app_name) # Replace with the actual path to the myapp folder
+  shiny_folder <- file.path(tempdir(), "shiny") # Replace with the actual path to the shiny folder
+  myapp_folder <- file.path(tempdir(), app_name) # Replace with the actual path to the myapp folder
   destination_path <- file.path(myapp_folder, "shiny")
   if (!dir.exists(shiny_folder)) {
     stop("The source folder (shiny) does not exist.")
@@ -31,15 +32,13 @@ prepare_electron <- function(app_name = "myapp", options) {
     stop("Failed to move the folder.")
   }
 
-  setwd(paste0(getwd(), "/", app_name))
   os <- detect_system()
   if (os["os"] == "macOS") {
-    get_r_mac(options = options)
+    get_r_mac(app_name = app_name, options = options)
   } else if (os["os"] == "Windows") {
     get_r_windows(options = options)
   }
   cli_alert_success("Installing R Complete")
-  source("add-cran-binary-pkgs.R")
+  add_cran_binary_pkgs(app_name = app_name)
   cli_alert_success("Installing CRAN binary packages Complete")
-  setwd("..")
 }

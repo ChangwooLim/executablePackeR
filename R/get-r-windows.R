@@ -3,7 +3,7 @@
 get_r_windows <- function(options) { # Define package name and paths
   R_version <- as.character(getRversion())
   r_installer_url <- paste0("https://cloud.r-project.org/bin/windows/base/old/", R_version, "/R-", R_version, "-win.exe")
-  r_dir <- "r-win"
+  r_dir <- file.path(tempdir(), app_name, "r-win")
   innoextract_url <- "https://constexpr.org/innoextract/files/innoextract-1.9-windows.zip"
   innoextract_url_mirror <- "https://github.com/dscharrer/innoextract/releases/download/1.9/innoextract-1.9-windows.zip"
   innoextract_filename <- "innoextract.zip"
@@ -12,7 +12,7 @@ get_r_windows <- function(options) { # Define package name and paths
 
   # Create download directory
   dir.create(r_dir)
-
+  setwd(r_dir)
   # Download R installer
   cli_alert_info("Downloading R Installer from r-project.org")
   download.file(r_installer_url, file.path(r_dir, "r_windows.exe"), mode = "wb")
@@ -54,4 +54,5 @@ get_r_windows <- function(options) { # Define package name and paths
       unlink(full_dir_path, recursive = TRUE)
     }
   })
+  setwd(tempdir())
 }
