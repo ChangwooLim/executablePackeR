@@ -89,11 +89,12 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
   # Cleaning temp files
   # unlink(file.path(tempdir(), app_name, "out/make"), recursive = TRUE)
   # setwd(file.path(tempdir(), app_name, "out"))
-  setwd(file.path(tempdir(), app_name, "out/make"))
-  executable_to_zip <- list.files(path = file.path("."), full.names = TRUE, recursive = TRUE)
-  cli_alert_info("Compressing. Please wait")
-  zip(zipfile = file.path(executable_save_directory, "executable.zip"), files = executable_to_zip, flags = "-q")
-  unlink(file.path(tempdir(), app_name))
+  output_location <- find_unique_file(file.path(tempdir(), app_name, "out/make"))
+  file.rename(output_location, file.path(executable_save_directory, basename(output_location)))
+  # executable_to_zip <- list.files(path = file.path("."), full.names = TRUE, recursive = TRUE)
+  # cli_alert_info("Compressing. Please wait")
+  # zip(zipfile = file.path(executable_save_directory, "executable.zip"), files = executable_to_zip, flags = "-q")
+  unlink(file.path(tempdir(), app_name), recursive = TRUE)
   setwd("..")
 }
 
