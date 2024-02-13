@@ -19,6 +19,8 @@ add_cran_binary_pkgs <- function(app_name = "myapp") {
   cran_pkgs <- setdiff(unique(c("shiny", automagic::get_dependent_packages("shiny"))), "automagic")
 
   copy_unavailable_packages <- function(unavailable_pkgs, library_install_path) {
+    default_packages <- c("base", "compiler", "datasets", "grDevices", "graphics", "grid", "methods", "parallel", "splines", "stats", "stats4", "tcltk", "tools", "translations", "utils")
+    unavailable_pkgs <- unavailable_pkgs[!unavailable_pkgs %in% default_packages]
     library_paths <- .libPaths()
 
     for (pkg in unavailable_pkgs) {
