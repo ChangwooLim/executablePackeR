@@ -39,6 +39,14 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
 
   cli_alert_success("Checking dependency Complete")
 
+  # Set Export Directory
+  cli_alert_info("Select a directory to save executable files.")
+  executable_save_directory <- rstudioapi::selectDirectory()
+  if(is.null(executable_save_directory)) {
+    cli_alert_danger("Select Export Directory")
+    stop("You should select export directory")
+  }
+
   if (app_name == "app") {
     cli_alert_warning("App name cannot be 'app'. Use different name(i. e. 'myapp').")
     user_response <- readline(prompt = "Please provide new name of your application: ")
@@ -77,13 +85,12 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
   setwd("..")
 
   # Cleaning temp files
-  cli_alert_info("Select a directory to save executable files.")
-  executable_save_directory <- rstudioapi::selectDirectory()
-
-  unlink(file.path(tempdir(), app_name, "out/make"))
-  executable_to_zip <- list.files(path = file.path(tempdir(), app_name, "out"), full.names = TRUE, recursive = TRUE)
-  setwd(app_name)
+  unlink(file.path(tempdir(), app_name, "out/make"), recursive = TRUE)
+  setwd(file.path(tempdir(), app_name, "out"))
+  executable_to_zip <- list.files(path = file.path("."), full.names = TRUE, recursive = TRUE)
+  cli_alert_info("Compressing. Please wait", total = 100)
   zip(zipfile = file.path(executable_save_directory, "executable.zip"), files = executable_to_zip, flags = "-q")
   unlink(file.path(tempdir(), app_name))
   setwd("..")
 }
+
