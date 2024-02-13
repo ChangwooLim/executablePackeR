@@ -1,3 +1,4 @@
+#' @import cli
 get_mac_architecture <- function() {
   architecture_info <- system2("uname", args = "-m", stdout = TRUE)
   if (architecture_info == "x86_64") {

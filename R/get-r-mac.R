@@ -1,5 +1,5 @@
 #' @importFrom utils download.file
-get_r_mac <- function(mac_version) {
+get_r_mac <- function(options) {
   os <- detect_system()
   # Define URL and directory
   if (as.numeric(os["version"]) >= 11) {

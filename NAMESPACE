@@ -3,6 +3,8 @@
 export(pack)
 import(automagic)
 import(cli)
+importFrom(cli,cli_alert_danger)
+importFrom(cli,cli_alert_info)
 importFrom(cli,cli_alert_success)
 importFrom(utils,download.file)
 importFrom(utils,unzip)

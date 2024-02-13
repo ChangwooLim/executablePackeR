@@ -1,3 +1,4 @@
+#' @importFrom cli cli_alert_success
 download_file <- function(primary_url, mirror_urls = c(), dest_file, name) {
   success <- try(download.file(primary_url, destfile = dest_file, mode = "wb"), silent = TRUE)
 
@@ -10,12 +11,12 @@ download_file <- function(primary_url, mirror_urls = c(), dest_file, name) {
       if (inherits(success, "try-error")) {
         warning(paste0("Mirror link ", link, " Failed. Trying another mirror if available."))
       } else {
-        message("Download Complete")
+        cli_alert_success("Download Complete")
         return("Download Complete")
       }
     }
   } else {
-    message("Download Complete")
+    cli_alert_success("Download Complete")
     return("Download Complete")
   }
 }

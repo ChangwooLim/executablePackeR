@@ -10,7 +10,7 @@ prepare_electron <- function(app_name = "myapp", options) {
     subdirectory = app_name,
     app_name = app_name
   )
-  message("Copying(copy_from_inst) complete")
+  cli_alert_success("Copying(copy_from_inst) complete")
 
   # Shiny폴더를 electron 앱 폴더 밑으로 옮김
   # Check if the source folder exists
@@ -34,12 +34,12 @@ prepare_electron <- function(app_name = "myapp", options) {
   setwd(paste0(getwd(), "/", app_name))
   os <- detect_system()
   if (os["os"] == "macOS") {
-    get_r_mac()
+    get_r_mac(options = options)
   } else if (os["os"] == "Windows") {
-    get_r_windows()
+    get_r_windows(options = options)
   }
-  print("Installing R Complete")
+  cli_alert_success("Installing R Complete")
   source("add-cran-binary-pkgs.R")
-  print("Installing CRAN binary packages Complete")
+  cli_alert_success("Installing CRAN binary packages Complete")
   setwd("..")
 }

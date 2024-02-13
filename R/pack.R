@@ -3,12 +3,13 @@
 #' @author Changwoo Lim
 #' @import automagic
 #' @import cli
+#' @importFrom rstudioapi selectDirectory
 #' @export
 #' @description
 #' This Function make your shiny app to an executable file
 #' Go to your project directory(Including app.R), and run this function.
 #' @examples
-#' \donttest{
+#' if(interactive()){
 #' # Needs at least 1 minute.
 #' pack(
 #'   app_name = "myapp",
@@ -29,16 +30,13 @@
 #' @param options A list containing options for packing. See option_description.md for details.
 #' @return Returns nothing. For generating new files.
 pack <- function(app_name = "myapp", electron_settings = list(), options = list()) {
-  allow_write_user_response <- readline(prompt = "This package writes in your current directory. Do you agree with it?: (Y/N) ")
-  if (!(tolower(allow_write_user_response) %in% c("yes", "y", "t", "true"))) { # Strip해서 공백되지 않아야 함.
-    cli_alert_danger("You should grant application to write in your current directory.")
-    stop("Aborting. User did not granted permission.")
-  }
-
   cli_h1("Packing your Shiny application to executable file")
   cli_h2("Checking Prerequisites")
 
   check_prerequisites(options = options)
+
+  cli_alert_info("Select a directory to save files.")
+  select_directory <- rstudioapi::selectDirectory()
 
   # Preparing: working directory
   oldwd <- getwd()
@@ -64,7 +62,7 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
     files_and_folders = c("package.json", "forge.config.js"),
     subdirectory = app_name, overwrite = TRUE, app_name = app_name
   )
-  message("Replacing forge.config.js and package.json complete.")
+  cli_alert_success("Replacing forge.config.js and package.json complete.")
   setwd(app_name)
 
   edit_package_json_reuslt <- edit_file("package.json", c(list(c("<@app_name>", app_name)), electron_settings))
@@ -74,10 +72,10 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
     stop("File not found")
   }
 
-  message("Installing npm dependencies(npm i)")
+  cli_alert_info("Installing npm dependencies(npm i)")
   system2("npm", args = "install", invisible = FALSE)
-  message("npm install Complete")
+  cli_alert_success("npm install Complete")
   system2("electron-forge", args = c("make"))
-  message(paste0("Build Complete. See ", app_name, "/out folder."))
+  cli_alert_success(paste0("Build Complete. See ", app_name, "/out folder."))
   setwd("..")
 }

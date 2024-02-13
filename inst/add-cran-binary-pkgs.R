@@ -12,6 +12,7 @@
 
 library(automagic)
 
+repo_old <- options()$repos
 options(repos = "https://cloud.r-project.org")
 
 cran_pkgs <- setdiff(unique(c("shiny", automagic::get_dependent_packages("shiny"))), "automagic")
@@ -165,3 +166,5 @@ if (dir.exists("r-win")) {
   )
   # copy_unavailable_packages(unavailable_packages, library_install_path)
 }
+
+options(repos = repo_old)
