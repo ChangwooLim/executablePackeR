@@ -34,9 +34,9 @@ get_r_windows <- function(app_name = "myapp", options) { # Define package name a
 
   # Move files from 'app' directory to 'r-win'
   app_dir <- file.path(r_dir, "app")
-  # Current directory: app_name/r-win
+
   if (dir.exists(app_dir)) {
-    files_to_move <- list.files(app_dir, full.names = TRUE, recursive = TRUE)
+    files_to_move <- list.files("app", full.names = TRUE)
     sapply(files_to_move, function(file) {
       file.rename(file, file.path(".", basename(file)))
     })
