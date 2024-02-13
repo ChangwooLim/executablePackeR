@@ -10,7 +10,7 @@
 # Code format changed using styler::style_active_file()
 # CRAN link updated to el-capitan to big-sur(m1)
 #' @import automagic
-add_cran_binary_pkgs <- function(app_name = "myapp"){
+add_cran_binary_pkgs <- function(app_name = "myapp") {
   setwd(file.path(tempdir(), app_name))
   repo_old <- options()$repos
   options(repos = "https://cloud.r-project.org")
@@ -57,7 +57,9 @@ add_cran_binary_pkgs <- function(app_name = "myapp"){
     extract_section <- function(section) {
       content <- readLines(description_path)
       start <- grep(paste0("^", section, ":"), content)
-      if (length(start) == 0) return(character(0))  # Return empty if section not found
+      if (length(start) == 0) {
+        return(character(0))
+      } # Return empty if section not found
 
       # Determine the end of the section
       next_sections <- grep("^[A-Za-z]+:", content)
@@ -89,17 +91,17 @@ add_cran_binary_pkgs <- function(app_name = "myapp"){
     # Combine and return unique package names
     required_packages <- unique(c(imports, depends))
     required_packages <- required_packages[required_packages != "" &
-                                             !required_packages %in% c("R", "Depends", "Imports", "Suggests", "LinkingTo")]
+      !required_packages %in% c("R", "Depends", "Imports", "Suggests", "LinkingTo")]
     return(required_packages)
   }
 
   install_bins <- function(
-    cran_pkgs, library_path, type, decompress,
-    remove_dirs = c(
-      "help", "doc", "tests", "html",
-      "include", "unitTests",
-      file.path("libs", "*dSYM")
-    )) {
+      cran_pkgs, library_path, type, decompress,
+      remove_dirs = c(
+        "help", "doc", "tests", "html",
+        "include", "unitTests",
+        file.path("libs", "*dSYM")
+      )) {
     installed <- list.files(library_path) # check installed packages
 
     cran_to_install <- sort(setdiff(
@@ -107,8 +109,8 @@ add_cran_binary_pkgs <- function(app_name = "myapp"){
         c(
           cran_pkgs,
           tools::package_dependencies(cran_pkgs,
-                                      recursive = TRUE,
-                                      which = c("Depends", "Imports", "LinkingTo")
+            recursive = TRUE,
+            which = c("Depends", "Imports", "LinkingTo")
           )
         )
       )),

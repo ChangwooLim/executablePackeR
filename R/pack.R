@@ -9,21 +9,19 @@
 #' This Function make your shiny app to an executable file
 #' Go to your project directory(Including app.R), and run this function.
 #' @examples
-#' if(interactive()){
-#' # Needs at least 1 minute.
-#' pack(
-#'   app_name = "myapp",
-#'   electron_settings = list(
-#'     c("product_name_template", "My Own Product Name"),
-#'     c("app_description_template", "App Description"),
-#'     c("author_name_template", "Author Name"),
-#'     c("author_email_template", "Author E-mail"),
-#'     c("repository_url_template", "Repository URL")
-#'   ),
-#'   options = list(
-#'
+#' if (interactive()) {
+#'   # Needs at least 1 minute.
+#'   pack(
+#'     app_name = "myapp",
+#'     electron_settings = list(
+#'       c("product_name_template", "My Own Product Name"),
+#'       c("app_description_template", "App Description"),
+#'       c("author_name_template", "Author Name"),
+#'       c("author_email_template", "Author E-mail"),
+#'       c("repository_url_template", "Repository URL")
+#'     ),
+#'     options = list()
 #'   )
-#' )
 #' }
 #' @param app_name Name of your application. Default will be "myapp".
 #' @param electron_settings A list including package.json settings. Including product_name, app_version, app_description, author_name, author_email, repository_url
@@ -63,19 +61,20 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
   )
   cli_alert_success("Replacing forge.config.js and package.json complete.")
   setwd(app_name)
+  {
+    edit_package_json_reuslt <- edit_file(paste0(tempdir(), "/", app_name, "/package.json"), c(list(c("<@app_name>", app_name)), electron_settings))
+    if (edit_package_json_reuslt == TRUE) {
+      cli_alert_success("Adjusting package.json content Complete")
+    } else {
+      stop("File not found")
+    }
+    setwd(file.path(tempdir(), app_name))
+    cli_alert_info("Installing npm dependencies(npm i)")
+    system2("npm", args = c("install"), invisible = FALSE)
+    cli_alert_success("npm install Complete")
 
-  edit_package_json_reuslt <- edit_file(paste0(tempdir(), "/", app_name, "/package.json"), c(list(c("<@app_name>", app_name)), electron_settings))
-  if(edit_package_json_reuslt == TRUE){
-    cli_alert_success("Adjusting package.json content Complete")
-  } else {
-    stop("File not found")
+    system2("electron-forge", args = c("make"))
+    cli_alert_success(paste0("Build Complete. See ", app_name, "/out folder."))
   }
-  setwd(file.path(tempdir(), app_name))
-  cli_alert_info("Installing npm dependencies(npm i)")
-  system2("npm", args = c("install"), invisible = FALSE)
-  cli_alert_success("npm install Complete")
-
-  system2("electron-forge", args = c("make"))
-  cli_alert_success(paste0("Build Complete. See ", app_name, "/out folder."))
   setwd("..")
 }
