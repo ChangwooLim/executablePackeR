@@ -1,16 +1,16 @@
 Package: executablePackeR
-Title: Make Shiny App to be Executable Program
+Title: Make 'shiny' App to Executable Program
 Version: 0.0.1
 Maintainer: Changwoo Lim <limcw@zarathu.com>
 Authors@R: 
     person("Changwoo", "Lim", , "limcw@zarathu.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-1949-0639"))
-Description: Make your 'Shiny' application as executable program. 
-    Users do not need to install 'R' and 'Shiny' on their system.
+Description: Make your 'shiny' application as executable program. 
+    Users do not need to install 'R' and 'shiny' on their system.
 License: GPL-3
 Depends: R (>= 4.2)
 Imports:
-  automagic
+  automagic, cli, rstudioapi
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
