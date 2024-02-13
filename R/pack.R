@@ -3,6 +3,7 @@
 #' @author Changwoo Lim
 #' @import automagic
 #' @import cli
+#' @importFrom utils zip
 #' @importFrom rstudioapi selectDirectory
 #' @export
 #' @description
@@ -35,9 +36,6 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
   cli_h2("Checking Prerequisites")
 
   check_prerequisites(options = options)
-
-  cli_alert_info("Select a directory to save files.")
-  select_directory <- rstudioapi::selectDirectory()
 
   cli_alert_success("Checking dependency Complete")
 
@@ -76,5 +74,16 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
     system2("electron-forge", args = c("make"))
     cli_alert_success(paste0("Build Complete. See ", app_name, "/out folder."))
   }
+  setwd("..")
+
+  # Cleaning temp files
+  cli_alert_info("Select a directory to save executable files.")
+  executable_save_directory <- rstudioapi::selectDirectory()
+
+  unlink(file.path(tempdir(), app_name, "out/make"))
+  executable_to_zip <- list.files(path = file.path(tempdir(), app_name, "out"), full.names = TRUE, recursive = TRUE)
+  setwd(app_name)
+  zip(zipfile = file.path(executable_save_directory, "executable.zip"), files = executable_to_zip, flags = "-q")
+  unlink(file.path(tempdir(), app_name))
   setwd("..")
 }

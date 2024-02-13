@@ -21,21 +21,19 @@ This Function make your shiny app to an executable file
 Go to your project directory(Including app.R), and run this function.
 }
 \examples{
-if(interactive()){
-# Needs at least 1 minute.
-pack(
-  app_name = "myapp",
-  electron_settings = list(
-    c("product_name_template", "My Own Product Name"),
-    c("app_description_template", "App Description"),
-    c("author_name_template", "Author Name"),
-    c("author_email_template", "Author E-mail"),
-    c("repository_url_template", "Repository URL")
-  ),
-  options = list(
-
+if (interactive()) {
+  # Needs at least 1 minute.
+  pack(
+    app_name = "myapp",
+    electron_settings = list(
+      c("product_name_template", "My Own Product Name"),
+      c("app_description_template", "App Description"),
+      c("author_name_template", "Author Name"),
+      c("author_email_template", "Author E-mail"),
+      c("repository_url_template", "Repository URL")
+    ),
+    options = list()
   )
-)
 }
 }
 \author{

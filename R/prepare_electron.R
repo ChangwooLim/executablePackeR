@@ -2,7 +2,7 @@
 prepare_electron <- function(app_name = "myapp", options) {
   setwd(tempdir())
   system2("npx", args = c("create-electron-app", app_name))
-  message("npx Complete")
+  cli_alert_success("npx Complete")
   unlink(paste0(app_name, "/src"), recursive = TRUE)
   copy_from_inst_to_app(
     files_and_folders = c(
@@ -36,7 +36,7 @@ prepare_electron <- function(app_name = "myapp", options) {
   if (os["os"] == "macOS") {
     get_r_mac(app_name = app_name, options = options)
   } else if (os["os"] == "Windows") {
-    get_r_windows(options = options)
+    get_r_windows(app_name = app_name, options = options)
   }
   cli_alert_success("Installing R Complete")
   add_cran_binary_pkgs(app_name = app_name)

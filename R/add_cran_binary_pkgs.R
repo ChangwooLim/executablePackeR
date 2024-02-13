@@ -10,6 +10,7 @@
 # Code format changed using styler::style_active_file()
 # CRAN link updated to el-capitan to big-sur(m1)
 #' @import automagic
+#' @importFrom utils available.packages download.packages untar
 add_cran_binary_pkgs <- function(app_name = "myapp") {
   setwd(file.path(tempdir(), app_name))
   repo_old <- options()$repos

@@ -10,7 +10,7 @@ Description: Make your 'shiny' application as executable program.
 License: GPL-3
 Depends: R (>= 4.2)
 Imports:
-  automagic, cli, rstudioapi
+  automagic, cli, rstudioapi, utils
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
