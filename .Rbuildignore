@@ -1,3 +1,5 @@
 ^executablePackeR\.Rproj$
 ^\.Rproj\.user$
 option_description.md
+^CRAN-SUBMISSION$
+^cran-comments\.md$
