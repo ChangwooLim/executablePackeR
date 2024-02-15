@@ -1,5 +1,8 @@
 #' @importFrom utils download.file
 get_r_mac <- function(app_name, options) {
+  oldwd <- getwd()
+  on.exit(setwd(oldwd))
+
   os <- detect_system()
   # Define URL and directory
   if (as.numeric(os["version"]) >= 11) {

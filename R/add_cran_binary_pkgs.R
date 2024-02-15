@@ -13,17 +13,18 @@
 #' @import cli
 #' @importFrom utils available.packages download.packages untar
 add_cran_binary_pkgs <- function(app_name = "myapp") {
+  oldwd <- getwd()
+  on.exit(setwd(oldwd))
   setwd(file.path(tempdir(), app_name))
+
   repo_old <- options()$repos
+  on.exit(options(repos = repo_old))
   options(repos = "https://cloud.r-project.org")
 
   cran_pkgs <- setdiff(unique(c("shiny", automagic::get_dependent_packages("shiny"))), "automagic")
 
   copy_unavailable_packages <- function(unavailable_pkgs, library_install_path) {
-    default_packages <- c("base", "compiler", "datasets", "grDevices", "graphics", "grid", "methods", "parallel", "splines", "stats", "stats4", "tcltk", "tools", "translations", "utils")
-    unavailable_pkgs <- unavailable_pkgs[!unavailable_pkgs %in% default_packages]
     library_paths <- .libPaths()
-
     for (pkg in unavailable_pkgs) {
       pkg_path <- find.package(pkg, lib.loc = library_paths, quiet = TRUE)
       if (nzchar(pkg_path)) {
@@ -32,7 +33,8 @@ add_cran_binary_pkgs <- function(app_name = "myapp") {
           dir.create(dest_dir, recursive = TRUE)
         }
         file.copy(pkg_path, dest_dir, recursive = TRUE)
-        cli_alert_success("Copied ", pkg, " to ", dest_dir)
+
+        cli_alert_success(paste0("Copied ", pkg, " to ", dest_dir))
 
         if (dir.exists("r-mac")) {
           library_install_path <- file.path("r-mac", "library")
@@ -150,7 +152,8 @@ add_cran_binary_pkgs <- function(app_name = "myapp") {
     )
 
     invisible(unavailable_pkgs)
-
+    default_packages <- c("base", "compiler", "datasets", "grDevices", "graphics", "grid", "methods", "parallel", "splines", "stats", "stats4", "tcltk", "tools", "translations", "utils")
+    unavailable_pkgs <- unavailable_pkgs[!unavailable_pkgs %in% default_packages]
     copy_unavailable_packages(unavailable_pkgs, library_path)
   }
 
@@ -173,6 +176,6 @@ add_cran_binary_pkgs <- function(app_name = "myapp") {
     # copy_unavailable_packages(unavailable_packages, library_install_path)
   }
 
-  options(repos = repo_old)
+
   setwd(tempdir())
 }
