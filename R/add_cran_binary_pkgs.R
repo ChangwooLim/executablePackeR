@@ -101,13 +101,12 @@ add_cran_binary_pkgs <- function(app_name = "myapp") {
     return(required_packages)
   }
 
-  install_bins <- function(
-      cran_pkgs, library_path, type, decompress,
-      remove_dirs = c(
-        "help", "doc", "tests", "html",
-        "include", "unitTests",
-        file.path("libs", "*dSYM")
-      )) {
+  install_bins <- function(cran_pkgs, library_path, type, decompress,
+                           remove_dirs = c(
+                             "help", "doc", "tests", "html",
+                             "include", "unitTests",
+                             file.path("libs", "*dSYM")
+                           )) {
     installed <- list.files(library_path) # check installed packages
 
     cran_to_install <- sort(setdiff(
