@@ -48,5 +48,5 @@ Thanks to [Jinhwan Kim](https://github.com/jhk0530) and Travis Hinkelman, Dirk S
 
 ## Contact
 
-Contact [limcw@zarathu.com](mailto:limcw@zarathu.com) for non-discloseable inquery.
+Contact [limcw@zarathu.com](mailto:limcw@zarathu.com) for non-public inquiry.
 
