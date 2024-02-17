@@ -29,6 +29,11 @@
 #' @param options A list containing options for packing. See option_description.md for details.
 #' @return Returns nothing. For generating new files.
 pack <- function(app_name = "myapp", electron_settings = list(), options = list()) {
+  if(options$is_dev == TRUE) {
+    DEV <- TRUE
+  } else {
+    DEV <- FALSE
+  }
   oldwd <- getwd()
   on.exit(setwd(oldwd))
 
@@ -94,5 +99,9 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
   # executable_to_zip <- list.files(path = file.path("."), full.names = TRUE, recursive = TRUE)
   # cli_alert_info("Compressing. Please wait")
   # zip(zipfile = file.path(executable_save_directory, "executable.zip"), files = executable_to_zip, flags = "-q")
+  if(DEV == FALSE ){
   unlink(file.path(tempdir(), app_name), recursive = TRUE)
+  } else if(DEV==TRUE){
+    cli_alert_info(tempdir())
+  }
 }
