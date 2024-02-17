@@ -4,14 +4,14 @@
 \alias{pack}
 \title{Make Shiny Application to Executable File}
 \usage{
-pack(app_name = "myapp", electron_settings = list(), options = list())
+pack(app_name = "myapp", electron_settings = list(), option = list())
 }
 \arguments{
 \item{app_name}{Name of your application. Default will be "myapp".}
 
 \item{electron_settings}{A list including package.json settings. Including product_name, app_version, app_description, author_name, author_email, repository_url}
 
-\item{options}{A list containing options for packing. See option_description.md for details.}
+\item{option}{A list containing option for packing. See option_description.md for details.}
 }
 \value{
 Returns nothing. For generating new files.
@@ -32,7 +32,7 @@ if (interactive()) {
       c("author_email_template", "Author E-mail"),
       c("repository_url_template", "Repository URL")
     ),
-    options = list()
+    option = list()
   )
 }
 }
