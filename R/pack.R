@@ -21,26 +21,28 @@
 #'       c("author_email_template", "Author E-mail"),
 #'       c("repository_url_template", "Repository URL")
 #'     ),
-#'     options = list()
+#'     option = list()
 #'   )
 #' }
 #' @param app_name Name of your application. Default will be "myapp".
 #' @param electron_settings A list including package.json settings. Including product_name, app_version, app_description, author_name, author_email, repository_url
-#' @param options A list containing options for packing. See option_description.md for details.
+#' @param option A list containing option for packing. See option_description.md for details.
 #' @return Returns nothing. For generating new files.
-pack <- function(app_name = "myapp", electron_settings = list(), options = list()) {
-  if(options$is_dev == TRUE) {
-    DEV <- TRUE
-  } else {
-    DEV <- FALSE
-  }
+pack <- function(app_name = "myapp", electron_settings = list(), option = list()) {
   oldwd <- getwd()
   on.exit(setwd(oldwd))
 
   cli_h1("Packing your Shiny application to executable file")
   cli_h2("Checking Prerequisites")
 
-  check_prerequisites(options = options)
+  if (option$is_dev == TRUE) {
+    cli_alert_info("DEV mode detected.")
+    DEV <- TRUE
+  } else {
+    DEV <- FALSE
+  }
+
+  check_prerequisites(option = option)
 
   cli_alert_success("Checking dependency Complete")
 
@@ -67,7 +69,7 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
   }
 
   move_to_new_folder()
-  prepare_electron(app_name = app_name, options = options)
+  prepare_electron(app_name = app_name, option = option)
   copy_from_inst_to_app(
     files_and_folders = c("package.json", "forge.config.js"),
     subdirectory = app_name, overwrite = TRUE, app_name = app_name
@@ -99,9 +101,9 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
   # executable_to_zip <- list.files(path = file.path("."), full.names = TRUE, recursive = TRUE)
   # cli_alert_info("Compressing. Please wait")
   # zip(zipfile = file.path(executable_save_directory, "executable.zip"), files = executable_to_zip, flags = "-q")
-  if(DEV == FALSE ){
-  unlink(file.path(tempdir(), app_name), recursive = TRUE)
-  } else if(DEV==TRUE){
-    cli_alert_info(tempdir())
+  if (DEV == FALSE) {
+    unlink(file.path(tempdir(), app_name), recursive = TRUE)
+  } else if (DEV == TRUE) {
+    cli_alert_info(paste0("tempdir(): ", tempdir()))
   }
 }
