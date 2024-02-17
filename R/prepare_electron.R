@@ -1,13 +1,15 @@
 #' @importFrom cli cli_alert_success
 prepare_electron <- function(app_name = "myapp", options) {
+  oldwd <- getwd()
+  on.exit(setwd(oldwd))
+
   setwd(tempdir())
+
   system2("npx", args = c("create-electron-app", app_name))
   cli_alert_success("npx Complete")
   unlink(paste0(app_name, "/src"), recursive = TRUE)
   copy_from_inst_to_app(
-    files_and_folders = c(
-      "add-cran-binary-pkgs.R", "src", "start-shiny.R"
-    ),
+    files_and_folders = c("src", "start-shiny.R"),
     subdirectory = app_name,
     app_name = app_name
   )

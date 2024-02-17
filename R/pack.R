@@ -42,7 +42,7 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
   # Set Export Directory
   cli_alert_info("Select a directory to save executable files.")
   executable_save_directory <- rstudioapi::selectDirectory()
-  if(is.null(executable_save_directory)) {
+  if (is.null(executable_save_directory)) {
     cli_alert_danger("Select Export Directory")
     stop("You should select export directory")
   } else {
@@ -68,7 +68,7 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
     subdirectory = app_name, overwrite = TRUE, app_name = app_name
   )
   cli_alert_success("Replacing forge.config.js and package.json complete.")
-  setwd(app_name)
+  setwd(file.path(tempdir(), app_name))
   {
     edit_package_json_reuslt <- edit_file(paste0(tempdir(), "/", app_name, "/package.json"), c(list(c("<@app_name>", app_name)), electron_settings))
     if (edit_package_json_reuslt == TRUE) {
@@ -95,6 +95,4 @@ pack <- function(app_name = "myapp", electron_settings = list(), options = list(
   # cli_alert_info("Compressing. Please wait")
   # zip(zipfile = file.path(executable_save_directory, "executable.zip"), files = executable_to_zip, flags = "-q")
   unlink(file.path(tempdir(), app_name), recursive = TRUE)
-  setwd("..")
 }
-
