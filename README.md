@@ -36,7 +36,14 @@ See option_description.md for more information.
 
 ## Troubleshooting
 
-Use Issue tab for reporting issues and requesting features.
+- Executable built successfully, but infinite loading after running.
+
+-> Run `executablePackeR::pack(option=list(is_dev=TRUE))`
+-> with is_dev option, processed file will not be deleted, and tempdir path will be printed at last.
+-> Open terminal, run `cd <tempdir path printed at your cosole>` 
+-> Run `electron-forge start` and see what is the problem.
+
+For another issues not described above, use Issue tab for reporting issues and requesting features.
 
 ## Credit
 
