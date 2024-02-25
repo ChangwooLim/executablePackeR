@@ -45,6 +45,23 @@ See option_description.md for more information.
 
 For another issues not described above, use Issue tab for reporting issues and requesting features.
 
+When you stuck at after "Installing R Complete" and see warning(or error) "Could not parse R code in",
+Run 
+
+```
+Sys.setlocale(category = 'LC_ALL' , locale = '')
+```
+
+or
+
+```
+Sys.setlocale(category = 'LC_ALL' , locale = 'en_US.UTF-8')
+```
+
+at your R Console.
+
+It might be a encoding problem, and may occurs at Windows Server Environment.
+
 ## Credit
 
 This package is developed under support of [Zarathu Corporation](https://www.zarathu.com)
