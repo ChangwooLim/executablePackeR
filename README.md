@@ -18,7 +18,11 @@ Run
 
 ```
 remotes::install_github("ChangwooLim/executablePackeR")
+```
+
 or
+
+```
 install.packages("executablePackeR")
 ```
 
