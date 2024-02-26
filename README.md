@@ -19,7 +19,7 @@ Run
 ```
 remotes::install_github("ChangwooLim/executablePackeR")
 or
-~~install.packages("executablePackeR")~~ Will be available soon.
+install.packages("executablePackeR")
 ```
 
 ## Before start
