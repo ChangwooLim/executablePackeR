@@ -1,6 +1,6 @@
 Package: executablePackeR
 Title: Make 'shiny' App to Executable Program
-Version: 0.0.1
+Version: 0.0.2
 Maintainer: Changwoo Lim <limcw@zarathu.com>
 Authors@R: 
     person("Changwoo", "Lim", , "limcw@zarathu.com", role = c("aut", "cre"),
