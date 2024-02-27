@@ -1,4 +1,5 @@
 #' @import cli
+#' @importFrom utils old.packages packageVersion
 checkForPackageUpdates <- function(packageName) {
 
   currentVersion <- packageVersion(packageName)
