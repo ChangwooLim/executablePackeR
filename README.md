@@ -44,6 +44,8 @@ You can apply your custom icons. However, some limitations apply.
 
 2. Put your icon at icon folder, with named icon.ico (for Windows) or icon.icns (for macOS).
 
+**Please note that icon files with another extensions(i. e. png) may not work.**
+
 For more information, please refer to [electron documents](https://www.electronforge.io/guides/create-and-add-icons).
 
 See option_description.md for more information.(Not yet prepared)
