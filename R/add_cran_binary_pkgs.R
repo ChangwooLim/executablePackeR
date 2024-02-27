@@ -178,3 +178,5 @@ add_cran_binary_pkgs <- function(app_name = "myapp") {
 
   setwd(tempdir())
 }
+
+

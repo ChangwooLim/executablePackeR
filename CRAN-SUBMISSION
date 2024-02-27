@@ -1,3 +1,7 @@
 Version: 0.0.1
-Date: 2024-02-13 08:18:05 UTC
-SHA: eeb88de8aa05c4ec66211807a268ee5054d2f720
+Date: 2024-02-15 11:12:03 UTC
+SHA: 50c4471ba4284c7ce15c4ccf4cc696e768937380
+
+Dear reviewer
+I have fixed as your advice
+- Every function that adjust working directory or option(), has on.exit() on the top of function. So, It can ensure restore of original state.

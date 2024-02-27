@@ -35,7 +35,7 @@ pack <- function(app_name = "myapp", electron_settings = list(), option = list()
   cli_h1("Packing your Shiny application to executable file")
   cli_h2("Checking Prerequisites")
 
-  if (option$is_dev == TRUE) {
+  if (("is_dev" %in% option) && option$is_dev == TRUE) {
     cli_alert_info("DEV mode detected.")
     DEV <- TRUE
   } else {
