@@ -37,6 +37,7 @@ pack <- function(app_name = "myapp", electron_settings = list(), option = list()
   cli_h2("Checking Prerequisites")
   check_prerequisites(option = option)
   cli_alert_success("Checking Prerequisites Succeed")
+  checkForPackageUpdates("executablePackeR")
 
   if (("is_dev" %in% names(option)) && option$is_dev == TRUE) {
     cli_alert_info("DEV mode detected.")
