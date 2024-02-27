@@ -36,7 +36,17 @@ Packages used in your application not available at CRAN should be installed at y
 
 ## Options
 
-See option_description.md for more information.
+### Icons
+
+You can apply your custom icons. However, some limitations apply.
+
+1. Make assets/icon folder on the level of your directory. For example, if your "app.R" is located at /User/yourdirectory/app.R, there should be /User/yourdirectory/assets/icon folder.
+
+2. Put your icon at icon folder, with named icon.ico (for Windows) or icon.icns (for macOS).
+
+For more information, please refer to [electron documents](https://www.electronforge.io/guides/create-and-add-icons).
+
+See option_description.md for more information.(Not yet prepared)
 
 ## Troubleshooting
 
