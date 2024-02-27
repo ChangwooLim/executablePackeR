@@ -1,5 +1,5 @@
 #' @importFrom cli cli_alert_success
-prepare_electron <- function(app_name = "myapp", options) {
+prepare_electron <- function(app_name = "myapp", option) {
   oldwd <- getwd()
   on.exit(setwd(oldwd))
 

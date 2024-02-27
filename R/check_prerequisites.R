@@ -1,5 +1,5 @@
 #' @import cli
-check_prerequisites <- function(options, test = FALSE) {
+check_prerequisites <- function(option, test = FALSE) {
   # Check OS is Windows or macOS
   detect_system()
 
