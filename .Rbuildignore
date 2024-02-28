@@ -4,3 +4,6 @@ option_description.md
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
 test_local
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
