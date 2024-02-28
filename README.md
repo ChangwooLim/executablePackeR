@@ -34,7 +34,51 @@ Run `npm i -g @electron-forge/cli` in your terminal to install electron in your 
 
 Packages used in your application not available at CRAN should be installed at your computer.
 
+## How to use
+
+Run `executablePackeR::pack()` at the same directory of your app.R
+
+To check where you are, run `getwd()`.
+
+For example, if your 'app.R' is located at "/Users/ChangwooLim/Desktop/my-app/app.R", you should run `executablePackeR::pack()` at "/Users/ChangwooLim/Desktop/my-app".
+
 ## Options
+
+You can pass some parameters to adjust settings.
+
+### App Name
+
+You can pass app name like below. If you don't set, default is "myapp"
+
+```
+executablePackeR::pack(
+#'     app_name = "myapp",
+#'     [... more options]
+#'   )
+```
+
+### Electron Settings
+
+Electron Settings are passed like below.
+
+You can pass 5 parameters. If you don't pass anything, below is default.
+
+The most important option is 'product_name_template', because it shows on the program window.
+
+Now, version is fixed to '0.0.1'. It will be available to change version soon.
+
+```
+#'   executablePackeR::pack(
+#'     electron_settings = list(
+#'       c("product_name_template", "My Own Product Name"),
+#'       c("app_description_template", "App Description"),
+#'       c("author_name_template", "Author Name"),
+#'       c("author_email_template", "Author E-mail"),
+#'       c("repository_url_template", "Repository URL")
+#'     ),
+#'     [... more options]
+#'   )
+```
 
 ### Icons
 
