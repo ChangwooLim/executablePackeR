@@ -87,9 +87,11 @@ Now, version is fixed to '0.0.1'. It will be available to change version soon.
 
 You can apply your custom icons. However, some limitations apply.
 
-1. Make assets/icon folder on the level of your directory. For example, if your "app.R" is located at /User/yourdirectory/app.R, there should be /User/yourdirectory/assets/icon folder.
+1. Make `assets/icon` folder on the level of your directory. For example, if your "app.R" is located at /User/yourdirectory/app.R, there should be /User/yourdirectory/assets/icon folder.
 
-2. Put your icon at icon folder, with named icon.ico (for Windows) or icon.icns (for macOS).
+2. Put your icon at icon folder. Icons should be named icon.ico (for Windows) or icon.icns (for macOS).
+
+If you don't place your icons at `assets/icon`, default icon will be used.
 
 **Please note that icon files with another extensions(i. e. png) may not work.**
 
