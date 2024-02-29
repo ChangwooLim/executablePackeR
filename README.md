@@ -1,5 +1,8 @@
 # executablePackeR
 
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/executablePackeR)](https://cran.r-project.org/package=executablePackeR)
+[![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/executablePackeR)](https://CRAN.R-project.org/package=executablePackeR)
+
 ## Dependency
 
 - R
